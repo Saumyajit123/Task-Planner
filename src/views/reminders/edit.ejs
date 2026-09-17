@@ -1,0 +1,195 @@
+<%- include("../partials/header", { title: "Edit Reminder" }) %>
+
+    <%- include("../partials/navbar") %>
+
+        <main class="container page-content">
+
+            <div class="page-header">
+
+                <div>
+
+                    <h1>
+                        Edit Reminder
+                    </h1>
+
+                    <p>
+                        Update your reminder settings.
+                    </p>
+
+                </div>
+
+                <a href="/ui/reminders" class="btn btn-secondary">
+                    Back
+                </a>
+
+            </div>
+
+            <div class="card form-card">
+
+                <% if (error) { %>
+
+                    <div class="alert alert-danger">
+                        <%= error %>
+                    </div>
+
+                    <% } %>
+
+                        <form action="/ui/reminders/edit/<%= reminder._id %>" method="POST" class="form">
+
+                            <div class="form-group">
+
+                                <label>
+                                    Task
+                                </label>
+
+                                <select disabled>
+
+                                    <% tasks.forEach(task=> { %>
+
+                                        <option value="<%= task._id %>"
+                                            <%=task._id.toString()===reminder.taskId.toString() ? "selected" : "" %>
+                                            >
+                                            <%= task.title %>
+                                        </option>
+
+                                        <% }) %>
+
+                                </select>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label>
+                                    Reminder Type
+                                </label>
+
+                                <select name="type" id="reminderType" onchange="toggleWeeklyDays()">
+
+                                    <option value="once" <%=reminder.type==="once" ? "selected" : "" %>
+                                        >
+                                        One Time
+                                    </option>
+
+                                    <option value="daily" <%=reminder.type==="daily" ? "selected" : "" %>
+                                        >
+                                        Daily
+                                    </option>
+
+                                    <option value="weekly" <%=reminder.type==="weekly" ? "selected" : "" %>
+                                        >
+                                        Weekly
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label>
+                                    Reminder Date & Time
+                                </label>
+
+                                <input type="datetime-local" name="reminderTime"
+                                    value="<%= new Date(reminder.reminderTime).toISOString().slice(0, 16) %>" required>
+
+                            </div>
+
+                            <div class="form-group <%= reminder.type === 'weekly' ? '' : 'd-none' %>" id="weeklyDays">
+
+                                <label>
+                                    Select Days
+                                </label>
+
+                                <div class="checkbox-grid">
+
+                                    <% for(let day=0; day <=6; day++) { %>
+
+                                        <label class="checkbox-item">
+
+                                            <input type="checkbox" name="daysOfWeek" value="<%= day %>"
+                                                <%=reminder.daysOfWeek.includes(day) ? "checked" : "" %>
+                                            >
+
+                                            <span>
+
+                                                <% const dayNames=[ "Sunday" , "Monday" , "Tuesday" , "Wednesday"
+                                                    , "Thursday" , "Friday" , "Saturday" ]; %>
+
+                                                    <%= dayNames[day] %>
+
+                                            </span>
+
+                                        </label>
+
+                                        <% } %>
+
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label class="checkbox-item">
+
+                                    <input type="checkbox" name="isActive" value="true" <%=reminder.isActive ? "checked"
+                                        : "" %>
+                                    >
+
+                                    <span>
+                                        Reminder is active
+                                    </span>
+
+                                </label>
+
+                            </div>
+
+                            <div class="form-actions">
+
+                                <a href="/ui/reminders" class="btn btn-secondary">
+                                    Cancel
+                                </a>
+
+                                <button type="submit" class="btn btn-primary">
+                                    Update Reminder
+                                </button>
+
+                            </div>
+
+                        </form>
+
+            </div>
+
+        </main>
+
+        <script>
+
+            function toggleWeeklyDays() {
+
+                const type =
+                    document.getElementById(
+                        "reminderType"
+                    ).value;
+
+                const weeklyDays =
+                    document.getElementById(
+                        "weeklyDays"
+                    );
+
+                if (type === "weekly") {
+
+                    weeklyDays.style.display =
+                        "block";
+
+                } else {
+
+                    weeklyDays.style.display =
+                        "none";
+
+                }
+            }
+
+        </script>
+
+        <%- include("../partials/footer") %>

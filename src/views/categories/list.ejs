@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Categories</title>
+</head>
+
+<body>
+
+    <h1>Categories</h1>
+
+    <a href="/ui/tasks">
+        Tasks
+    </a>
+
+    |
+
+    <a href="/ui/categories/create">
+        Add Category
+    </a>
+
+    <hr>
+
+    <% categories.forEach(category=> { %>
+
+        <div>
+
+            <h3>
+                <%= category.name %>
+            </h3>
+
+            <p>
+                <%= category.description %>
+            </p>
+
+            <a href="/ui/categories/edit/<%= category._id %>">
+                Edit
+            </a>
+
+            <form action="/ui/categories/delete/<%= category._id %>" method="POST" style="display:inline">
+
+                <button type="submit">
+                    Delete
+                </button>
+
+            </form>
+
+        </div>
+
+        <hr>
+
+        <% }) %>
+
+</body>
+
+</html>

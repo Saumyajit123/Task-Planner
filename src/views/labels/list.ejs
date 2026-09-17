@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Labels</title>
+</head>
+
+<body>
+
+    <h1>Labels</h1>
+
+    <a href="/ui/tasks">
+        Tasks
+    </a>
+
+    |
+
+    <a href="/ui/labels/create">
+        Add Label
+    </a>
+
+    <hr>
+
+    <% labels.forEach(label=> { %>
+
+        <div>
+
+            <h3>
+                #<%= label.name %>
+            </h3>
+
+            <a href="/ui/labels/edit/<%= label._id %>">
+                Edit
+            </a>
+
+            <form action="/ui/labels/delete/<%= label._id %>" method="POST" style="display:inline">
+
+                <button type="submit">
+                    Delete
+                </button>
+
+            </form>
+
+        </div>
+
+        <hr>
+
+        <% }) %>
+
+</body>
+
+</html>

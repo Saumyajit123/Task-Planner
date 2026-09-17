@@ -1,0 +1,92 @@
+<%- include("../partials/header", { title: "Edit Profile" }) %>
+
+    <%- include("../partials/navbar") %>
+
+        <main class="container page-content">
+
+            <div class="page-header">
+
+                <div>
+
+                    <h1>
+                        Edit Profile
+                    </h1>
+
+                    <p>
+                        Update your account information.
+                    </p>
+
+                </div>
+
+                <a href="/ui/profile" class="btn btn-secondary">
+                    Back
+                </a>
+
+            </div>
+
+            <div class="card form-card">
+
+                <% if (error) { %>
+
+                    <div class="alert alert-danger">
+                        <%= error %>
+                    </div>
+
+                    <% } %>
+
+                        <form action="/ui/profile/edit" method="POST" class="form">
+
+                            <div class="form-group">
+
+                                <label>
+                                    Name
+                                </label>
+
+                                <input type="text" name="name" value="<%= user.name %>" required>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label>
+                                    Email
+                                </label>
+
+                                <input type="email" name="email" value="<%= user.email %>" required>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label>
+                                    Profile Picture URL
+                                </label>
+
+                                <input type="url" name="profilePicture" value="<%= user.profilePicture || '' %>"
+                                    placeholder="https://example.com/photo.jpg">
+
+                                <small>
+                                    Enter an image URL.
+                                </small>
+
+                            </div>
+
+                            <div class="form-actions">
+
+                                <a href="/ui/profile" class="btn btn-secondary">
+                                    Cancel
+                                </a>
+
+                                <button type="submit" class="btn btn-primary">
+                                    Save Changes
+                                </button>
+
+                            </div>
+
+                        </form>
+
+            </div>
+
+        </main>
+
+        <%- include("../partials/footer") %>

@@ -1,0 +1,27 @@
+<%- include("../partials/header", { title: "Email Verification" }) %>
+
+    <div class="auth-page">
+
+        <div class="auth-card text-center">
+
+            <div class="success-icon">
+                ✓
+            </div>
+
+            <h1>
+                Email Verification
+            </h1>
+
+            <p class="verification-message">
+                <%= message %>
+            </p>
+
+            <a href="/ui/login" class="btn btn-primary">
+                Go to Login
+            </a>
+
+        </div>
+
+    </div>
+
+    <%- include("../partials/footer") %>

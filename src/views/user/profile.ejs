@@ -1,0 +1,111 @@
+<%- include("../partials/header", { title: "My Profile" }) %>
+
+    <%- include("../partials/navbar") %>
+
+        <main class="container page-content">
+
+            <div class="page-header">
+
+                <div>
+
+                    <h1>
+                        My Profile
+                    </h1>
+
+                    <p>
+                        Manage your account information.
+                    </p>
+
+                </div>
+
+                <a href="/ui/profile/edit" class="btn btn-primary">
+                    Edit Profile
+                </a>
+
+            </div>
+
+            <div class="profile-card card">
+
+                <div class="profile-picture">
+
+                    <% if (user.profilePicture) { %>
+
+                        <img src="<%= user.profilePicture %>" alt="Profile Picture">
+
+                        <% } else { %>
+
+                            <div class="profile-placeholder">
+                                <%= user.name.charAt(0).toUpperCase() %>
+                            </div>
+
+                            <% } %>
+
+                </div>
+
+                <div class="profile-info">
+
+                    <div class="profile-field">
+
+                        <span class="profile-label">
+                            Name
+                        </span>
+
+                        <strong>
+                            <%= user.name %>
+                        </strong>
+
+                    </div>
+
+                    <div class="profile-field">
+
+                        <span class="profile-label">
+                            Email
+                        </span>
+
+                        <strong>
+                            <%= user.email %>
+                        </strong>
+
+                    </div>
+
+                    <div class="profile-field">
+
+                        <span class="profile-label">
+                            Email Verification
+                        </span>
+
+                        <% if (user.isEmailVerified) { %>
+
+                            <span class="status status-completed">
+                                Verified
+                            </span>
+
+                            <% } else { %>
+
+                                <span class="status status-pending">
+                                    Not Verified
+                                </span>
+
+                                <% } %>
+
+                    </div>
+
+                    <div class="profile-field">
+
+                        <span class="profile-label">
+                            Member Since
+                        </span>
+
+                        <strong>
+                            <%= new Date( user.createdAt ).toLocaleDateString() %>
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+
+        <%- include("../partials/footer") %>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Create Task</title>
+</head>
+
+<body>
+
+    <h1>Create Task</h1>
+
+    <form action="/ui/tasks/create" method="POST">
+
+        <div>
+
+            <label>Title</label>
+
+            <input type="text" name="title" required>
+
+        </div>
+
+        <br>
+
+        <div>
+
+            <label>Description</label>
+
+            <textarea name="description"></textarea>
+
+        </div>
+
+        <br>
+
+        <div>
+
+            <label>Priority</label>
+
+            <select name="priority">
+
+                <option value="Low">
+                    Low
+                </option>
+
+                <option value="Medium" selected>
+                    Medium
+                </option>
+
+                <option value="High">
+                    High
+                </option>
+
+            </select>
+
+        </div>
+
+        <br>
+
+        <div>
+
+            <label>Due Date</label>
+
+            <input type="datetime-local" name="dueDate" required>
+
+        </div>
+
+        <br>
+
+        <div>
+
+            <label>Category</label>
+
+            <select name="categoryId">
+
+                <option value="">
+                    No Category
+                </option>
+
+                <% categories.forEach(category=> { %>
+
+                    <option value="<%= category._id %>">
+                        <%= category.name %>
+                    </option>
+
+                    <% }) %>
+
+            </select>
+
+        </div>
+
+        <br>
+
+        <div>
+
+            <label>Labels</label>
+
+            <% labels.forEach(label=> { %>
+
+                <div>
+
+                    <input type="checkbox" name="labels" value="<%= label._id %>">
+
+                    <%= label.name %>
+
+                </div>
+
+                <% }) %>
+
+        </div>
+
+        <br>
+
+        <button type="submit">
+            Create Task
+        </button>
+
+    </form>
+
+    <br>
+
+    <a href="/ui/tasks">
+        Back
+    </a>
+
+</body>
+
+</html>

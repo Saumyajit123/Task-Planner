@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Task Summary</title>
+</head>
+
+<body>
+
+    <h1>Today's Task Summary</h1>
+
+    <a href="/ui/tasks">
+        Tasks
+    </a>
+
+    <hr>
+
+    <h2>
+        Total Tasks:
+        <%= summary.totalTasks %>
+    </h2>
+
+    <h2>
+        Completed:
+        <%= summary.completedTasks %>
+    </h2>
+
+    <h2>
+        Pending:
+        <%= summary.pendingTasks %>
+    </h2>
+
+    <br>
+
+    <a href="/ui/reports/statistics">
+        View Statistics
+    </a>
+
+    <br>
+
+    <a href="/ui/reports/completion">
+        Completion Over Time
+    </a>
+
+</body>
+
+</html>

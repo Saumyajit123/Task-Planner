@@ -1,0 +1,299 @@
+<%- include("../partials/header", { title: "My Tasks" }) %>
+
+    <%- include("../partials/navbar") %>
+
+        <main class="container page-content">
+
+            <div class="page-header">
+
+                <div>
+
+                    <h1>
+                        My Tasks
+                    </h1>
+
+                    <p>
+                        Plan, organize and complete your day.
+                    </p>
+
+                </div>
+
+                <a href="/ui/tasks/create" class="btn btn-primary">
+                    + Add Task
+                </a>
+
+            </div>
+
+            <div class="card filter-card">
+
+                <form action="/ui/tasks" method="GET" class="filter-form">
+
+                    <div class="form-group">
+
+                        <label>
+                            Status
+                        </label>
+
+                        <select name="status">
+
+                            <option value="">
+                                All
+                            </option>
+
+                            <option value="Pending" <%=filters.status==="Pending" ? "selected" : "" %>
+                                >
+                                Pending
+                            </option>
+
+                            <option value="Completed" <%=filters.status==="Completed" ? "selected" : "" %>
+                                >
+                                Completed
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+                            Date
+                        </label>
+
+                        <select name="date">
+
+                            <option value="">
+                                All Dates
+                            </option>
+
+                            <option value="today" <%=filters.date==="today" ? "selected" : "" %>
+                                >
+                                Today
+                            </option>
+
+                            <option value="tomorrow" <%=filters.date==="tomorrow" ? "selected" : "" %>
+                                >
+                                Tomorrow
+                            </option>
+
+                            <option value="week" <%=filters.date==="week" ? "selected" : "" %>
+                                >
+                                This Week
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+                            Category
+                        </label>
+
+                        <select name="categoryId">
+
+                            <option value="">
+                                All Categories
+                            </option>
+
+                            <% categories.forEach(category=> { %>
+
+                                <option value="<%= category._id %>" <%=filters.categoryId===category._id.toString()
+                                    ? "selected" : "" %>
+                                    >
+                                    <%= category.name %>
+                                </option>
+
+                                <% }) %>
+
+                        </select>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+                            Label
+                        </label>
+
+                        <select name="labelId">
+
+                            <option value="">
+                                All Labels
+                            </option>
+
+                            <% labels.forEach(label=> { %>
+
+                                <option value="<%= label._id %>" <%=filters.labelId===label._id.toString() ? "selected"
+                                    : "" %>
+                                    >
+                                    #<%= label.name %>
+                                </option>
+
+                                <% }) %>
+
+                        </select>
+
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        Filter
+                    </button>
+
+                </form>
+
+            </div>
+
+            <div class="task-list">
+
+                <% if (tasks.length===0) { %>
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+                            ✓
+                        </div>
+
+                        <h2>
+                            No tasks found
+                        </h2>
+
+                        <p>
+                            You're all caught up!
+                        </p>
+
+                        <a href="/ui/tasks/create" class="btn btn-primary">
+                            Create Task
+                        </a>
+
+                    </div>
+
+                    <% } %>
+
+                        <% tasks.forEach(task=> { %>
+
+                            <article class="task-card">
+
+                                <div class="task-main">
+
+                                    <div class="task-title-row">
+
+                                        <h2>
+                                            <%= task.title %>
+                                        </h2>
+
+                                        <span class="priority priority-<%= task.priority.toLowerCase() %>">
+                                            <%= task.priority %>
+                                        </span>
+
+                                    </div>
+
+                                    <% if (task.description) { %>
+
+                                        <p class="task-description">
+                                            <%= task.description %>
+                                        </p>
+
+                                        <% } %>
+
+                                            <div class="task-meta">
+
+                                                <% if (task.category) { %>
+
+                                                    <span>
+                                                        📁
+                                                        <%= task.category.name %>
+                                                    </span>
+
+                                                    <% } %>
+
+                                                        <span>
+                                                            🕐
+                                                            <%= new Date( task.dueDate ).toLocaleString() %>
+                                                        </span>
+
+                                                        <span>
+                                                            Order:
+                                                            <%= task.order %>
+                                                        </span>
+
+                                            </div>
+
+                                            <% if ( task.labels && task.labels.length> 0
+                                                ) { %>
+
+                                                <div class="task-labels">
+
+                                                    <% task.labels.forEach(label=> { %>
+
+                                                        <span class="label">
+                                                            #<%= label.name %>
+                                                        </span>
+
+                                                        <% }) %>
+
+                                                </div>
+
+                                                <% } %>
+
+                                </div>
+
+                                <div class="task-side">
+
+                                    <% if ( task.status==="Completed" ) { %>
+
+                                        <span class="status status-completed">
+                                            Completed
+                                        </span>
+
+                                        <% } else { %>
+
+                                            <span class="status status-pending">
+                                                Pending
+                                            </span>
+
+                                            <% } %>
+
+                                                <div class="task-actions">
+
+                                                    <a href="/ui/tasks/edit/<%= task._id %>"
+                                                        class="btn btn-small btn-secondary">
+                                                        Edit
+                                                    </a>
+
+                                                    <% if ( task.status !=="Completed" ) { %>
+
+                                                        <form action="/ui/tasks/complete/<%= task._id %>" method="POST">
+
+                                                            <button type="submit" class="btn btn-small btn-success">
+                                                                Complete
+                                                            </button>
+
+                                                        </form>
+
+                                                        <% } %>
+
+                                                            <form action="/ui/tasks/delete/<%= task._id %>"
+                                                                method="POST">
+
+                                                                <button type="submit" class="btn btn-small btn-danger"
+                                                                    onclick="return confirm('Delete this task?')">
+                                                                    Delete
+                                                                </button>
+
+                                                            </form>
+
+                                                </div>
+
+                                </div>
+
+                            </article>
+
+                            <% }) %>
+
+            </div>
+
+        </main>
+
+        <%- include("../partials/footer") %>

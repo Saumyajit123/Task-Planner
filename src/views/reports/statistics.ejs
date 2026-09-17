@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Task Statistics</title>
+</head>
+
+<body>
+
+    <h1>Task Statistics</h1>
+
+    <p>
+        Total Tasks:
+        <%= statistics.totalTasks %>
+    </p>
+
+    <p>
+        Completed:
+        <%= statistics.completedTasks %>
+    </p>
+
+    <p>
+        Pending:
+        <%= statistics.pendingTasks %>
+    </p>
+
+    <p>
+        Completion Rate:
+        <%= statistics.completionRate.toFixed(2) %>%
+    </p>
+
+    <p>
+        Average Completion Time:
+        <%= statistics.averageCompletionTimeHours.toFixed(2) %>
+            hours
+    </p>
+
+    <a href="/ui/tasks">
+        Back to Tasks
+    </a>
+
+</body>
+
+</html>

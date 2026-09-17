@@ -1,0 +1,78 @@
+<%- include("../partials/header", { title: "Create Category" }) %>
+
+    <%- include("../partials/navbar") %>
+
+        <main class="container page-content">
+
+            <div class="page-header">
+
+                <div>
+
+                    <h1>
+                        Create Category
+                    </h1>
+
+                    <p>
+                        Organize your tasks into categories.
+                    </p>
+
+                </div>
+
+                <a href="/ui/categories" class="btn btn-secondary">
+                    Back
+                </a>
+
+            </div>
+
+            <div class="card form-card">
+
+                <% if (error) { %>
+
+                    <div class="alert alert-danger">
+                        <%= error %>
+                    </div>
+
+                    <% } %>
+
+                        <form action="/ui/categories/create" method="POST" class="form">
+
+                            <div class="form-group">
+
+                                <label>
+                                    Category Name
+                                </label>
+
+                                <input type="text" name="name" placeholder="e.g. Work" required>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label>
+                                    Description
+                                </label>
+
+                                <textarea name="description" rows="5"
+                                    placeholder="Describe this category..."></textarea>
+
+                            </div>
+
+                            <div class="form-actions">
+
+                                <a href="/ui/categories" class="btn btn-secondary">
+                                    Cancel
+                                </a>
+
+                                <button type="submit" class="btn btn-primary">
+                                    Create Category
+                                </button>
+
+                            </div>
+
+                        </form>
+
+            </div>
+
+        </main>
+
+        <%- include("../partials/footer") %>

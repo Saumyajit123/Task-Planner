@@ -1,0 +1,67 @@
+<%- include("../partials/header", { title: "Edit Label" }) %>
+
+    <%- include("../partials/navbar") %>
+
+        <main class="container page-content">
+
+            <div class="page-header">
+
+                <div>
+
+                    <h1>
+                        Edit Label
+                    </h1>
+
+                    <p>
+                        Update your task label.
+                    </p>
+
+                </div>
+
+                <a href="/ui/labels" class="btn btn-secondary">
+                    Back
+                </a>
+
+            </div>
+
+            <div class="card form-card">
+
+                <% if (error) { %>
+
+                    <div class="alert alert-danger">
+                        <%= error %>
+                    </div>
+
+                    <% } %>
+
+                        <form action="/ui/labels/edit/<%= label._id %>" method="POST" class="form">
+
+                            <div class="form-group">
+
+                                <label>
+                                    Label Name
+                                </label>
+
+                                <input type="text" name="name" value="<%= label.name %>" required>
+
+                            </div>
+
+                            <div class="form-actions">
+
+                                <a href="/ui/labels" class="btn btn-secondary">
+                                    Cancel
+                                </a>
+
+                                <button type="submit" class="btn btn-primary">
+                                    Update Label
+                                </button>
+
+                            </div>
+
+                        </form>
+
+            </div>
+
+        </main>
+
+        <%- include("../partials/footer") %>

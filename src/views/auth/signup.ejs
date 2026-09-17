@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Signup</title>
+</head>
+
+<body>
+
+    <h1>Create Account</h1>
+
+    <form action="/ui/signup" method="POST">
+
+        <div>
+            <label>Name</label>
+
+            <input type="text" name="name" required>
+        </div>
+
+        <br>
+
+        <div>
+            <label>Email</label>
+
+            <input type="email" name="email" required>
+        </div>
+
+        <br>
+
+        <div>
+            <label>Password</label>
+
+            <input type="password" name="password" required>
+        </div>
+
+        <br>
+
+        <button type="submit">
+            Signup
+        </button>
+
+    </form>
+
+    <p>
+        Already have an account?
+        <a href="/ui/login">
+            Login
+        </a>
+    </p>
+
+    <% if (error) { %>
+
+        <p style="color:red">
+            <%= error %>
+        </p>
+
+        <% } %>
+
+</body>
+
+</html>

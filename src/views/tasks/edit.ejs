@@ -1,0 +1,211 @@
+<%- include("../partials/header", { title: "Edit Task" }) %>
+
+    <%- include("../partials/navbar") %>
+
+        <main class="container page-content">
+
+            <div class="page-header">
+
+                <div>
+
+                    <h1>
+                        Edit Task
+                    </h1>
+
+                    <p>
+                        Update your task details.
+                    </p>
+
+                </div>
+
+                <a href="/ui/tasks" class="btn btn-secondary">
+                    Back to Tasks
+                </a>
+
+            </div>
+
+            <div class="card form-card">
+
+                <% if (error) { %>
+
+                    <div class="alert alert-danger">
+                        <%= error %>
+                    </div>
+
+                    <% } %>
+
+                        <form action="/ui/tasks/edit/<%= task._id %>" method="POST" class="form">
+
+                            <div class="form-group">
+
+                                <label for="title">
+                                    Task Title
+                                </label>
+
+                                <input type="text" id="title" name="title" value="<%= task.title %>" required>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label for="description">
+                                    Description
+                                </label>
+
+                                <textarea id="description" name="description"
+                                    rows="5"><%= task.description %></textarea>
+
+                            </div>
+
+                            <div class="form-row">
+
+                                <div class="form-group">
+
+                                    <label for="priority">
+                                        Priority
+                                    </label>
+
+                                    <select id="priority" name="priority">
+
+                                        <option value="Low" <%=task.priority==="Low" ? "selected" : "" %>
+                                            >
+                                            Low
+                                        </option>
+
+                                        <option value="Medium" <%=task.priority==="Medium" ? "selected" : "" %>
+                                            >
+                                            Medium
+                                        </option>
+
+                                        <option value="High" <%=task.priority==="High" ? "selected" : "" %>
+                                            >
+                                            High
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+                                <div class="form-group">
+
+                                    <label for="status">
+                                        Status
+                                    </label>
+
+                                    <select id="status" name="status">
+
+                                        <option value="Pending" <%=task.status==="Pending" ? "selected" : "" %>
+                                            >
+                                            Pending
+                                        </option>
+
+                                        <option value="Completed" <%=task.status==="Completed" ? "selected" : "" %>
+                                            >
+                                            Completed
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label for="dueDate">
+                                    Due Date & Time
+                                </label>
+
+                                <input type="datetime-local" id="dueDate" name="dueDate"
+                                    value="<%= new Date(task.dueDate).toISOString().slice(0, 16) %>" required>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label for="categoryId">
+                                    Category
+                                </label>
+
+                                <select id="categoryId" name="categoryId">
+
+                                    <option value="">
+                                        No Category
+                                    </option>
+
+                                    <% categories.forEach(category=> { %>
+
+                                        <option value="<%= category._id %>" <%=task.categoryId &&
+                                            task.categoryId.toString()===category._id.toString() ? "selected" : "" %>
+                                            >
+                                            <%= category.name %>
+                                        </option>
+
+                                        <% }) %>
+
+                                </select>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label>
+                                    Labels
+                                </label>
+
+                                <div class="checkbox-grid">
+
+                                    <% labels.forEach(label=> { %>
+
+                                        <label class="checkbox-item">
+
+                                            <input type="checkbox" name="labels" value="<%= label._id %>"
+                                                <%=task.labels.some( taskLabel=>
+                                            taskLabel.toString() === label._id.toString()
+                                            )
+                                            ? "checked"
+                                            : ""
+                                            %>
+                                            >
+
+                                            <span>
+                                                #<%= label.name %>
+                                            </span>
+
+                                        </label>
+
+                                        <% }) %>
+
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label for="order">
+                                    Display Order
+                                </label>
+
+                                <input type="number" id="order" name="order" min="0" value="<%= task.order %>">
+
+                            </div>
+
+                            <div class="form-actions">
+
+                                <a href="/ui/tasks" class="btn btn-secondary">
+                                    Cancel
+                                </a>
+
+                                <button type="submit" class="btn btn-primary">
+                                    Update Task
+                                </button>
+
+                            </div>
+
+                        </form>
+
+            </div>
+
+        </main>
+
+        <%- include("../partials/footer") %>

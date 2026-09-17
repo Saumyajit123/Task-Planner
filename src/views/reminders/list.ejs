@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Reminders</title>
+</head>
+
+<body>
+
+    <h1>Reminders</h1>
+
+    <a href="/ui/tasks">
+        Tasks
+    </a>
+
+    |
+
+    <a href="/ui/reminders/create">
+        Add Reminder
+    </a>
+
+    <hr>
+
+    <% reminders.forEach(reminder=> { %>
+
+        <div>
+
+            <h3>
+                <%= reminder.task.title %>
+            </h3>
+
+            <p>
+                Type:
+                <%= reminder.type %>
+            </p>
+
+            <p>
+                Reminder:
+                <%= reminder.reminderTime.toLocaleString() %>
+            </p>
+
+            <% if (reminder.type==="weekly" ) { %>
+
+                <p>
+                    Days:
+                    <%= reminder.daysOfWeek.join(", ") %>
+            </p>
+
+        <% } %>
+
+        <p>
+            Active:
+            <%= reminder.isActive %>
+        </p>
+
+        <a
+            href=" /ui/reminders/edit/<%=reminder._id %>"
+                        >
+                        Edit
+                        </a>
+
+                        <form action="/ui/reminders/delete/<%= reminder._id %>" method="POST" style="display:inline">
+
+                            <button type="submit">
+                                Delete
+                            </button>
+
+                        </form>
+
+        </div>
+
+        <hr>
+
+        <% }) %>
+
+</body>
+
+</html>
